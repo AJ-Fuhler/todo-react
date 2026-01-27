@@ -1,0 +1,48 @@
+@import url("reset.css");
+
+* {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.sidebar {
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: rgba(78, 177, 177, 0.506);
+}
+
+.main {
+  width: 800px;
+}
+
+.todo-row {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+
+.todo-row:hover {
+  background-color: rgba(78, 177, 177, 0.506);
+}
+
+.todo-title:hover {
+  color: white;
+  cursor: pointer;
+}
+
+.trash-icon {
+  width: 15px;
+  height: 15px;
+  transition: transform;
+}
+
+.trash-icon:hover {
+  transform: scale(1.3);
+}
