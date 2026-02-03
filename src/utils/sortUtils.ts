@@ -2,16 +2,11 @@ import type { Todo } from '../types/index'
 
 const sortByDate = (todos: Todo[]) => {
   return [...todos]
-    .map(todo => {
-      if (todo.month === "mn") {
-        todo.month = "";
-      }
-      if (todo.year === "dflt") {
-        todo.year = "";
-      }
-
-      return todo;
-    })
+    .map(todo => ({
+      ...todo,
+      month: todo.month === 'mn' ? '' : todo.month,
+      year: todo.year === 'dflt' ? '' : todo.year,
+    }))
     .sort((a, b) => {
       if ((!a.month || !a.year) && (!b.month || !b.year)) return 0;
       if ((!a.month || !a.year) && (b.month && b.year)) return -1;

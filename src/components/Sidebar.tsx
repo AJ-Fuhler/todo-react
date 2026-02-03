@@ -1,39 +1,44 @@
-import type { SidebarProps } from '../types'
+import { useTodoApp } from '../contexts/TodoAppContext';
+import { SidebarItem } from './SidebarItem';
 
-const SideBar = ({ selectedTitle, setSelectedTitle, todosByDate, completedTodosByDate, setCompletedOnly, completedOnly }: SidebarProps
-) => {
+export function Sidebar() {
+  const {
+    selectedTitle,
+    setSelectedTitle,
+    todosByDate,
+    completedTodosByDate,
+    completedOnly,
+    setCompletedOnly,
+  } = useTodoApp();
+
   return (
-    <>
-      {todosByDate.size > 0 && Array.from(todosByDate.entries())
-        .map(([title, todos]) => (
-          <div
-            className={title === selectedTitle && !completedOnly ? "sidebar selected" : "sidebar"}
+    <div className="sidebar__list">
+      {todosByDate.size > 0 &&
+        Array.from(todosByDate.entries()).map(([title, todos]) => (
+          <SidebarItem
             key={title}
-            onClick={() => {
+            title={title}
+            count={todos.length}
+            isSelected={selectedTitle === title && !completedOnly}
+            onSelect={() => {
               setCompletedOnly(false);
               setSelectedTitle(title);
             }}
-            style={{ padding: "12px 16px", cursor: "pointer" }}
-          >
-            {title} ({todos.length})
-          </div>
+          />
         ))}
-      {completedTodosByDate.size > 0 && Array.from(completedTodosByDate.entries())
-        .map(([title, todos]) => (
-          <div
-            className={title === selectedTitle && completedOnly ? "sidebar selected" : "sidebar"}
-            key={title}
-            onClick={() => {
+      {completedTodosByDate.size > 0 &&
+        Array.from(completedTodosByDate.entries()).map(([title, todos]) => (
+          <SidebarItem
+            key={`completed-${title}`}
+            title={title}
+            count={todos.length}
+            isSelected={selectedTitle === title && completedOnly}
+            onSelect={() => {
               setCompletedOnly(true);
               setSelectedTitle(title);
             }}
-            style={{ padding: "12px 16px", cursor: "pointer" }}
-          >
-            {title} ({todos.length})
-          </div>
+          />
         ))}
-    </>
-  )
+    </div>
+  );
 }
-
-export default SideBar
